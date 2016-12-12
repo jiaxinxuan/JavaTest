@@ -45,7 +45,7 @@ public class HelloVelocity {
 	 test.put("5", "e");
 	 ctx.put("map", test);
 	 StringWriter sw = new StringWriter();
-	 //将上下文中的数据合并到vm文件中，并获取输出流
+	 //将上下文中的数据合并到vm文件中，并获取输出
 	 t.merge(ctx, sw);
 	 
 	 System.out.println(sw.toString()); 
