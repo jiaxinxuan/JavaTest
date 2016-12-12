@@ -3,6 +3,9 @@ package com.servlet.test;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.log4j.Logger;
+
+import com.lucence.test.WebCrawlerDemo;
 import com.velocity.test.HelloVelocity;
 
 /**
@@ -17,6 +20,7 @@ import com.velocity.test.HelloVelocity;
  */
 public class TestListener implements ServletContextListener {
 
+	private Logger log=Logger.getLogger(TestListener.class);
     /**
      * Default constructor. 
      */
@@ -38,7 +42,15 @@ public class TestListener implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent arg0)  { 
          // TODO Auto-generated method stub
-    	//HelloVelocity.printVolecity();
+    	log.info("监听器启动");
+    	try {
+    		HelloVelocity.printVolecity();
+    		log.info("文件输出完毕");
+		} catch (Exception e) {
+			log.info("文件加载失败");
+		}
+    	
+    	//WebCrawlerDemo.main(null);
     }
 	
 }
