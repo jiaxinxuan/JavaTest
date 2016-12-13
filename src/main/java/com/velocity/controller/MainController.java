@@ -20,7 +20,7 @@ public class MainController {
    @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
    public String welcomePage(Model model) {
        List<Department> list = deptService.listDepartment();
-       model.addAttribute("departments", list);
+       model.addAttribute("departments", list);   
        return "index";
    }
 }
