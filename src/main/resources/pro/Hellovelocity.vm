@@ -1,0 +1,17 @@
+#set( $iAmVariable = "good!" )
+Welcome $name to velocity.com
+today is $date.
+#foreach ($i in $list)
+$i
+#end
+#foreach ($i in $list)
+$i
+#end
+#foreach($key in $map.keySet())  
+$!map.get($key)  
+#end  
+$iAmVariable
+#set($number=12345678)
+$number
+#set($tset="123344")
+$tset
