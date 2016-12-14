@@ -21,6 +21,11 @@ public class MainController {
    public String welcomePage(Model model) {
        List<Department> list = deptService.listDepartment();
        model.addAttribute("departments", list);   
-       return "index";
+       return "views/index";
+   }
+   
+   @RequestMapping(value = { "/", "/exit" }, method = RequestMethod.GET)
+   public String exitPage(Model model) {
+       return "layouts/layout";
    }
 }
