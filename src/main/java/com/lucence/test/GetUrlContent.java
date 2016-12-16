@@ -15,7 +15,6 @@ import java.util.Date;
 /**
  * 下载网页的类，根据传入的URL连接，下载网页
  * @author caixin
- *
  */
 public class GetUrlContent {
 	
