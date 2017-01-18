@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+<classPathEntry location="D:\Ajiaxinxuan\mysql-connector-java-5.1.39\mysql-connector-java-5.1.39-bin.jar"  />
+  <context id="context1">
+    <jdbcConnection connectionURL="jdbc:mysql://10.10.201.114:3306/expert_course_db_test"
+     driverClass="com.mysql.jdbc.Driver" password="coursedb" userId="course" />
+    <javaModelGenerator targetPackage="com.test.entity"  
+           targetProject="MyTest\src\main\java" />  
+       <sqlMapGenerator targetPackage="com.test.dao"  
+           targetProject="MyTest\src\main\java" />  
+       <javaClientGenerator targetPackage="com.test.dao"  
+           targetProject="MyTest\src\main\java" type="XMLMAPPER" /> 
+      <table domainObjectName="Course" tableName="course"  
+            enableCountByExample="false" enableUpdateByExample="false"  
+            enableDeleteByExample="false" enableSelectByExample="false"  
+            selectByExampleQueryId="false">  
+        </table>  
+        <table domainObjectName="User" tableName="user"  
+            enableCountByExample="false" enableUpdateByExample="false"  
+            enableDeleteByExample="false" enableSelectByExample="false"  
+            selectByExampleQueryId="false">  
+        </table>  
+  </context>
+</generatorConfiguration>
