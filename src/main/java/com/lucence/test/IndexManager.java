@@ -41,9 +41,9 @@ public class IndexManager{
     private static IndexManager indexManager;
     private static String content="";
     
-    private static String INDEX_DIR = "D:\\luceneIndex";
+    private static String INDEX_DIR = "E:\\luceneIndex";
     
-    private static String DATA_DIR = "D:\\luceneData";
+    private static String DATA_DIR = "E:\\luceneData";
     //分析
     private static Analyzer analyzer = null;
     //目录

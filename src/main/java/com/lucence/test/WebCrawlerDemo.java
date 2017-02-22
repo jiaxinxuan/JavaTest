@@ -36,7 +36,13 @@ public class WebCrawlerDemo {
     oldMap.put(baseUrl, false);
     oldMap = crawlLinks(oldLinkHost, oldMap);
     for (Map.Entry<String, Boolean> mapping : oldMap.entrySet()) {
-      System.out.println("链接：" + mapping.getKey());
+    	 try {
+			Spider.downloadPage(mapping.getKey());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      System.out.println("链接：" + mapping.getKey()+"抓取完毕");
  
     }
  
@@ -61,6 +67,13 @@ public class WebCrawlerDemo {
  
     for (Map.Entry<String, Boolean> mapping : oldMap.entrySet()) {
       System.out.println("link:" + mapping.getKey() + "--------check:"+mapping.getValue());
+      try {
+			Spider.downloadPage(mapping.getKey());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      System.out.println("链接：" + mapping.getKey()+"抓取完毕");
       // 如果没有被遍历过
       if (!mapping.getValue()) {
         oldLink = mapping.getKey();

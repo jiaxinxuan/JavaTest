@@ -35,7 +35,7 @@ public class Spider {
    String filename = path.substring(path.lastIndexOf('/') + 1)
      + ".html";
    // 获得文件输出流
-   output = new FileOutputStream("E:\\"+filename);
+   output = new FileOutputStream("E:\\DATASpider\\"+filename);
    // 输出到文件
    int tempByte = -1;
    while ((tempByte = input.read()) > 0) {
@@ -55,7 +55,7 @@ public class Spider {
  }
  public static void main(String[] args) {
   try {
-   // 抓取百度首页，输出
+   // 抓取百度首页，保存
    Spider.downloadPage("http://www.baidu.com");
   } catch (Exception e) {
    e.printStackTrace();
