@@ -15,7 +15,7 @@ public class WebCrawlerDemo {
 	 try {
 		 WebCrawlerDemo webCrawlerDemo = new WebCrawlerDemo();
 		 webCrawlerDemo.myPrint("http://www.caixin.com");
-		 webCrawlerDemo.myPrint("http://www.hao123.com");
+		 //webCrawlerDemo.myPrint("http://www.hao123.com");
 	} catch (Exception e) {
 		// TODO: handle exception
 	}
@@ -32,18 +32,10 @@ public class WebCrawlerDemo {
     if (m.find()) {
       oldLinkHost = m.group();
     }
- 
     oldMap.put(baseUrl, false);
     oldMap = crawlLinks(oldLinkHost, oldMap);
     for (Map.Entry<String, Boolean> mapping : oldMap.entrySet()) {
-    	 try {
-			Spider.downloadPage(mapping.getKey());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
       System.out.println("链接：" + mapping.getKey()+"抓取完毕");
- 
     }
  
   }

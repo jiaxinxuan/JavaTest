@@ -31,9 +31,18 @@ public class Spider {
   // 简单起见，只处理返回值为 200 的状态码
   if (statusCode == HttpStatus.SC_OK) {
    input = getMethod.getResponseBodyAsStream();
-   // 通过对URL的得到文件名
-   String filename = path.substring(path.lastIndexOf('/') + 1)
-     + ".html";
+   // 通过对URL的解析到文件名
+   String filename=null;
+ /*  if(path.endsWith("html")||path.endsWith("jsp")||path.endsWith("htm")||path.endsWith("asp")||path.endsWith("php")){
+	    filename = path.substring(path.lastIndexOf('/') + 1);
+   }else{
+	    filename = path.substring(path.lastIndexOf('/') + 1)+ ".html";
+   }*/
+   if(path.endsWith("html")){
+	    filename = path.substring(path.lastIndexOf('/') + 1);
+  }else{
+	  filename=String.valueOf((Math.random()*1000000))+"time.html";
+  }
    // 获得文件输出流
    output = new FileOutputStream("E:\\DATASpider\\"+filename);
    // 输出到文件
@@ -49,6 +58,7 @@ public class Spider {
    if (output != null) {
     output.close();
    }
+   HtmlParse.parseHtml("E:\\DATASpider\\"+filename);
    return true;
   }
   return false;
