@@ -12,6 +12,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
  */
 public class Spider {
  private static HttpClient httpClient = new HttpClient();
+ private static String filePath="F:\\luceneData";
  /**
   * @param path
   *            目标网页的链接
@@ -44,7 +45,7 @@ public class Spider {
 	  filename=String.valueOf((Math.random()*1000000))+"time.html";
   }
    // 获得文件输出流
-   output = new FileOutputStream("E:\\DATASpider\\"+filename);
+   output = new FileOutputStream(filePath+"/"+filename);
    // 输出到文件
    int tempByte = -1;
    while ((tempByte = input.read()) > 0) {
@@ -58,7 +59,7 @@ public class Spider {
    if (output != null) {
     output.close();
    }
-   HtmlParse.parseHtml("E:\\DATASpider\\"+filename);
+   HtmlParse.parseHtml(filePath+"/"+filename);
    return true;
   }
   return false;

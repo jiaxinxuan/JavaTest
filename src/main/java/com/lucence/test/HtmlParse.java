@@ -3,8 +3,7 @@ package com.lucence.test;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,10 +18,10 @@ public class HtmlParse {
 	 */
 	public static void parseHtml(String path){
 		File file=new File(path);
+		BufferedReader br=null;
 		try {
-			FileInputStream fis=new FileInputStream(file);
 			String content=null;
-			BufferedReader br=new BufferedReader(new InputStreamReader(fis));
+			br=new BufferedReader(new FileReader(file));
 			while(br.read()>=0){
 				content=content+br.readLine();
 				content=content+"\r\n";

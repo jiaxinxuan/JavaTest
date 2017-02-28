@@ -65,6 +65,11 @@ public class GetUrlContent {
 		}
      }
 	
+	/**
+	 * 复制文章
+	 * @param srcFile
+	 * @param desFile
+	 */
 	public static void cpFile(String srcFile,String desFile){
 		File srcf=new File(srcFile);
 		File desf=new File(desFile);

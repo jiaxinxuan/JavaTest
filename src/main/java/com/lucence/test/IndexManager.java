@@ -41,9 +41,9 @@ public class IndexManager{
     private static IndexManager indexManager;
     private static String content="";
     
-    private static String INDEX_DIR = "E:\\luceneIndex";
+    private static String INDEX_DIR = "F:\\luceneIndex";
     
-    private static String DATA_DIR = "E:\\luceneData";
+    private static String DATA_DIR = "F:\\luceneData";
     //分析
     private static Analyzer analyzer = null;
     //目录
@@ -279,7 +279,9 @@ public class IndexManager{
         }else{
             fileIndex.mkdir();
         }
-        
+        if(!new File(DATA_DIR).exists()){
+        	new File(DATA_DIR).mkdirs();
+        }
         createIndex(DATA_DIR);
         searchIndex("jiaxinxuan");
     }
