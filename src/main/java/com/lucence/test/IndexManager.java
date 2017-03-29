@@ -33,7 +33,7 @@ import jxl.Sheet;
 import jxl.Workbook;
 
 /**
- * @author xinghl
+ * @author jiaxinxuan
  *
  */
 public class IndexManager{

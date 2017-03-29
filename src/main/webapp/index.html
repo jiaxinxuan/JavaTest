@@ -2,128 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>与会人员</title>
-    <script src="http://file.caixin.com/caixin/js/shopmobile/flexible.js"></script>
-    <link href="http://file.caixin.com/caixin/css/summit/mobile_caixinsummit2016.css" rel="stylesheet">
+    <title>搜索一下</title>
+    <style type="text/css">
+    .search{display:block; width: 150px;height: 46px;float: left;background-color: rgb(51, 133, 255);line-height: 46px;font-size: large;cursor: pointer;}
+    .intro{margin: 20% auto;text-align: center;height:40px;}
+    .main{text-align: center;height:40px;}
+    </style>
 </head>
 <body>
-<div class="member">
-
-    <!-- 广告 -->
-    <div id="ad-test" class="report-ad">
-        <img src="http://file.caixin.com/images/topic/cxfh2016/ad_occupy.gif" />
-    </div>
-
-    <div class="report-block">
-        <h2>参与嘉宾</h2>
-    </div>
-
-    <div class="agenda-tab">
-
-        <ul class="clearfix">
-            <li class="left ">12.1<i></i></li>
-            <li class="left active">12.2<i></i></li>
-            <li class="left">12.3<i></i></li>
-        </ul>
-
-    </div>
-
-    <div class="agenda-title clearfix">
-        <div class="left agenda-title-time">开幕致辞</div>
-    </div>
-
-    <ul class="member-list clearfix">
-
-        <li>
-            <a>
-                <img src="http://img.caixin.com/2012-11-13/201211130033.jpg" alt="">
-                <strong>胡舒立</strong>
-            </a>
-        </li>
-
-        <li>
-            <a>
-                <img src="http://img.caixin.com/2015-10-26/1445848907979419.jpg" alt="">
-                <strong>余永定</strong>
-            </a>
-        </li>
-
-        <li>
-            <a>
-                <img src="http://img.caixin.com/2015-10-26/1445849059842658.jpg" alt="">
-                <strong>何慕娴</strong>
-            </a>
-        </li>
-
-    </ul>
-
-    <ul class="member-list clearfix">
-
-        <li>
-            <a>
-                <img src="http://img.caixin.com/2015-11-04/1446623106072930.jpg" alt="">
-                <strong>朴英哲</strong>
-            </a>
-        </li>
-
-        <li>
-            <a>
-                <img src="http://img.caixin.com/2014-12-14/1418630220506278.jpg" alt="">
-                <strong>项向军</strong>
-            </a>
-        </li>
-
-        <li>
-            <a>
-                <img src="http://img.caixin.com/2014-12-15/1418635658649837.jpg" alt="">
-                <strong>申明高</strong>
-            </a>
-        </li>
-    </ul>
-
-    <ul class="member-list clearfix">
-        <li>
-            <a>
-                <img src="http://img.caixin.com/2015-10-28/1446040083524877.jpg" alt="">
-                <strong>张逸晨</strong>
-            </a>
-        </li>
-
-    </ul>
-
-
-
-
-    <div class="agenda-title clearfix">
-        <div class="left agenda-title-time">开幕致辞</div>
-    </div>
-
-
-    <ul class="member-list clearfix">
-        <li>
-            <a>
-                <img src="http://img.caixin.com/2015-10-28/1446040083524877.jpg" alt="">
-                <strong>张逸晨</strong>
-            </a>
-        </li>
-
-    </ul>
-
-
-
-
-
-    <!-- tab-bar -->
-    <div class="fhmenu">
-        <span>报道</span>
-        <span>日程</span>
-        <span class="current">嘉宾</span>
-        <span>视频</span>
-    </div>
+<div id="admin" class="intro">
+<input id="content" name="content" type="text" style="height: 40px;width: 400px;float: left;margin-left: 30%;"> 
+<span id="search" class="search">搜索一下</span>
+</div>
+<div id="result" style="margin-left: 30%;margin-top: 3%;width: 550px;word-break:break-word;">
 
 </div>
-
-<script src="http://file.caixin.com/webjs/jquery-1.7.2.min.js"></script>
-<script src="http://file.caixin.com/caixin/js/summit/mobile_caixinsummit2016.js"></script>
 </body>
+<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+<script type="text/javascript">
+$("#search").click(function(){
+	var content=$("#content").val();
+	if(content.trim()==""){
+		  window.location.reload();
+		return;
+	}
+	var search="title:"+content+" || header:"+content+" || content:"+content;
+	$.ajax({
+		url:"http://localhost:8082/solr/new_core/select",
+		data:{q:search,wt:'json',rows:10},
+		type:'json',
+		success:function(data){
+			if(data.responseHeader.status==0){
+				$("#admin").removeClass("intro").addClass('main');
+				var html="<ul  style='padding:0;margin:0'>";
+				$.each(data.response.docs,function(index,obj){
+					html+="<li style='list-style-type:none;'><a href='"+obj.baseUrl+"'>"+obj.title+"</a><p>"+obj.content+"</p></li>";
+				});
+				html=html+"<ul/>";
+				$("#result").append(html);
+			}else{
+				alert("查询有误！");
+			}
+		}
+	});
+});
+</script>
 </html>
