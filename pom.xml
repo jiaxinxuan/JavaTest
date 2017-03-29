@@ -157,6 +157,11 @@
 		    <artifactId>mail</artifactId>
 		    <version>1.4</version>
 		</dependency>
+		 <dependency>  
+            <groupId>org.slf4j</groupId>  
+            <artifactId>slf4j-log4j12</artifactId>  
+            <version>1.7.5</version>  
+        </dependency>  
   </dependencies>
   <!-- maven仓库配置，这是个范例，可以被其他项目并用 -->
   <repositories>
