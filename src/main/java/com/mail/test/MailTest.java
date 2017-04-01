@@ -22,7 +22,6 @@ public class MailTest {
       
     @Autowired  
     private MailUtil mailUtil;  
-      
     /**
      * 单发测试
      */
