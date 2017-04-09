@@ -7,6 +7,8 @@
     .search{display:block; width: 150px;height: 46px;float: left;background-color: rgb(51, 133, 255);line-height: 46px;font-size: large;cursor: pointer;}
     .intro{margin: 20% auto;text-align: center;height:40px;}
     .main{text-align: center;height:40px;}
+    .font{font-size: x-small;font-style:italic;}
+    .nextclass{ width: 100px;height: 20px;background-color: rgb(51, 133, 255);line-height: 20px;font-size: large;cursor: pointer;}
     </style>
 </head>
 <body>
@@ -17,34 +19,55 @@
 <div id="result" style="margin-left: 30%;margin-top: 3%;width: 550px;word-break:break-word;">
 
 </div>
+<div style="width: 100%;text-align: center;margin: 0 auto;" >
+<span id= "lastPage" class="nextclass">上一页</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="nextPage"  class="nextclass">下一页</span>
+ 
+</div>
 </body>
-<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+<script type="text/javascript" src="http://localhost:8080/MyTest/js/jquery-3.2.0.min.js"></script>
 <script type="text/javascript">
+var page=1;
+
+$("#lastPage").click(function(){
+	search();
+	page--;
+});
+
+$("#nextPage").click(function(){
+	search();
+	page++;
+});
 $("#search").click(function(){
+	search();
+	page=1;
+});
+
+function search(){
 	var content=$("#content").val();
 	if(content.trim()==""){
 		  window.location.reload();
 		return;
 	}
 	var search="title:"+content+" || header:"+content+" || content:"+content;
+
 	$.ajax({
-		url:"http://localhost:8082/solr/new_core/select",
-		data:{q:search,wt:'json',rows:10},
+		url:"http://localhost:8080/solr/new_core/select",
+		data:{q:search,wt:'json',rows:10,start:page*10+1},
 		type:'json',
 		success:function(data){
 			if(data.responseHeader.status==0){
 				$("#admin").removeClass("intro").addClass('main');
 				var html="<ul  style='padding:0;margin:0'>";
 				$.each(data.response.docs,function(index,obj){
-					html+="<li style='list-style-type:none;'><a href='"+obj.baseUrl+"'>"+obj.title+"</a><p>"+obj.content+"</p></li>";
+					html+="<li style='list-style-type:none;'><a  target='_blank'  href='"+obj.baseUrl+"'>"+obj.title+"</a><p class='font'>"+obj.text.substring(20,200); +"</p></li>";
 				});
 				html=html+"<ul/>";
-				$("#result").append(html);
+				$("#result").html(html);
 			}else{
 				alert("查询有误！");
 			}
 		}
 	});
-});
+}
 </script>
 </html>
