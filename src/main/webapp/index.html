@@ -24,7 +24,7 @@
  
 </div>
 </body>
-<script type="text/javascript" src="http://localhost:8080/MyTest/js/jquery-3.2.0.min.js"></script>
+<script type="text/javascript" src="http://localhost:8082/MyTest/js/jquery-3.2.0.min.js"></script>
 <script type="text/javascript">
 var page=1;
 
@@ -51,7 +51,7 @@ function search(){
 	var search="title:"+content+" || header:"+content+" || content:"+content;
 
 	$.ajax({
-		url:"http://localhost:8080/solr/new_core/select",
+		url:"http://120.25.96.145:8081/solr/new_core/select",
 		data:{q:search,wt:'json',rows:10,start:page*10+1},
 		type:'json',
 		success:function(data){
