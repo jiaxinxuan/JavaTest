@@ -8,7 +8,7 @@
     .intro{margin: 20% auto;text-align: center;height:40px;}
     .main{text-align: center;height:40px;}
     .font{font-size: x-small;font-style:italic;}
-    .nextclass{ width: 100px;height: 20px;background-color: rgb(51, 133, 255);line-height: 20px;font-size: large;cursor: pointer;}
+    .nextclass{ width: 100px;height: 20px;background-color: rgb(51, 133, 255);line-height: 20px;font-size: large;cursor: pointer;display: none;}
     </style>
 </head>
 <body>
@@ -24,22 +24,21 @@
  
 </div>
 </body>
-<script type="text/javascript" src="http://localhost:8082/MyTest/js/jquery-3.2.0.min.js"></script>
+<script type="text/javascript" src="http://localhost:8080/MyTest/js/jquery-3.2.0.min.js"></script>
 <script type="text/javascript">
-var page=1;
+var page=0;
 
 $("#lastPage").click(function(){
-	search();
 	page--;
+	search();
 });
 
 $("#nextPage").click(function(){
-	search();
 	page++;
+	search();
 });
 $("#search").click(function(){
 	search();
-	page=1;
 });
 
 function search(){
@@ -51,11 +50,23 @@ function search(){
 	var search="title:"+content+" || header:"+content+" || content:"+content;
 
 	$.ajax({
-		url:"http://120.25.96.145:8081/solr/new_core/select",
+		url:"http://localhost:8080/solr/new_core/select",
 		data:{q:search,wt:'json',rows:10,start:page*10+1},
 		type:'json',
 		success:function(data){
 			if(data.responseHeader.status==0){
+				if(data.response.numFound>10){
+					var tatalPage=data.response.numFound;
+							$("#lastPage").show();
+							$("#nextPage").show();
+							if((page+1)*10>=tatalPage){
+								$("#nextPage").hide();
+							}
+							if(page<=0){
+								$("#lastPage").hide();
+							}
+				}
+		
 				$("#admin").removeClass("intro").addClass('main');
 				var html="<ul  style='padding:0;margin:0'>";
 				$.each(data.response.docs,function(index,obj){
