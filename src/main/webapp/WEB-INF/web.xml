@@ -33,7 +33,7 @@
   <context-param>
      <param-name>contextConfigLocation</param-name>
      <param-value>
-      classpath:spring-mail.xml 
+      classpath:spring*.xml 
      </param-value>
  </context-param>  
   <!-- Spring ContextLoaderListener -->
