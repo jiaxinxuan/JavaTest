@@ -236,7 +236,7 @@
             <profiles.active>dev</profiles.active>
         </properties>
         <activation>
-            <activeByDefault>true</activeByDefault>
+            <activeByDefault>true</activeByDefault><!--默认当前环境生效 -->
         </activation>
   	</profile>
     <profile>
@@ -295,8 +295,7 @@
 					<!-- 开启过滤，使用指定目录包的文件替换掉公共的文件 -->
 					<webResources>
 						<resource>
-							<!-- this is relative to the pom.xml directory -->
-							<directory>src/main/resources-${package.environment}</directory>
+							<directory>src/main/resources-${profiles.active}</directory>
 							<targetPath>WEB-INF/classes</targetPath>
 							<filtering>true</filtering>
 						</resource>
@@ -310,7 +309,7 @@
 							<goal>war</goal>
 						</goals>
 						<configuration>
-							<warName>ROOT-pro</warName>
+							<warName>${project.build.name}-pro</warName>
 							<archive>
 								<addMavenDescriptor>false</addMavenDescriptor>
 							</archive>
@@ -331,7 +330,7 @@
 							<goal>war</goal>
 						</goals>
 						<configuration>
-							<warName>ROOT-dev</warName>
+							<warName>${project.build.name}-dev</warName>
 							<archive>
 								<addMavenDescriptor>false</addMavenDescriptor>
 							</archive>
@@ -352,7 +351,7 @@
 							<goal>war</goal>
 						</goals>
 						<configuration>
-							<warName>ROOT-test</warName>
+							<warName>${project.build.name}-test</warName>
 							<archive>
 								<addMavenDescriptor>false</addMavenDescriptor>
 							</archive>
