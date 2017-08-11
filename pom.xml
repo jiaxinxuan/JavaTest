@@ -13,6 +13,11 @@
   </properties>
   
   <dependencies>
+	<dependency>
+	    <groupId>org.freemarker</groupId>
+	    <artifactId>freemarker</artifactId>
+	    <version>2.3.20</version>
+	</dependency>
   	<dependency>
 		<groupId>junit</groupId>
 		<artifactId>junit</artifactId>
@@ -217,7 +222,7 @@
       </snapshots>  
     </repository>  -->
     <!-- 国外仓库 -->
-   <repository>
+<!--    <repository>
 			<id>
                 repository.apache.org
             </id>
@@ -231,8 +236,15 @@
 			<releases>
 				<enabled>false</enabled>
 			</releases>
+		</repository> -->
+		<repository>
+			<id>public</id>
+			<name>阿里云公共镜像</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<layout>default</layout>
+			<snapshots>
+			</snapshots>
 		</repository>
-  
   </repositories>
   <!-- 多环境配置 环境都公用的配置，直接放到src/main/resources目录下或WEB-INF/目录下，打包时会自动替换-->
   <profiles>
