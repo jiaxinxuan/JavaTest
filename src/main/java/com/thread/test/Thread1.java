@@ -1,4 +1,4 @@
-package com.thread;
+package com.thread.test;
 /**
  * 实现多线程runable方法
  * @author Administrator

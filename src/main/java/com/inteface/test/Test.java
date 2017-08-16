@@ -1,4 +1,4 @@
-package com.test.interfac;
+package com.inteface.test;
 
 public interface Test {
 	default void hehe(){

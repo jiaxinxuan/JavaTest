@@ -5,12 +5,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.apache.poi.util.SystemOutLogger;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 public class Snippet {
 	    public static String getWeChatUserInfo(){
-	        String urlNameString = "http://172.20.200.94:8080/SpecialTagManager/infoOpen/getNews.do?contentId=101001416";
+	        String urlNameString = "http://172.20.200.83:10002/clearCache";
 	        String result="";
 	          try {
 	                HttpGet request = new HttpGet(urlNameString);
@@ -25,6 +26,8 @@ public class Snippet {
 	        return result;
 	    }
 	    
-
+public static void main(String[] args) {
+	System.out.println(getWeChatUserInfo());
+}
 }
 
