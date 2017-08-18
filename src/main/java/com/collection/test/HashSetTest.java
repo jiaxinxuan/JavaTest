@@ -16,8 +16,10 @@ import java.util.TreeSet;
 import java.util.Vector;
 import java.util.WeakHashMap;
 
+import com.test.entity.User;
 
-public class HashSetTest {
+
+public class HashSetTest<K, V> {
 
 	private String name;
 	private Integer age;
@@ -115,17 +117,24 @@ public class HashSetTest {
 		 */
 		//table中的结构为哈希表加单向链表,元素无序
 		Map hashMap=new HashMap<String,Object>();
-		//table中的结构为哈希表加双向循环链表,元素可指定顺序为插入顺序和输出顺序
-		Map linkedHashMap=new LinkedHashMap<String,Object>();
+		hashMap.put(null, null);
+		hashMap.get(null);
+		System.out.println(hashMap.get(null)+"---------------------");
+		//table中的结构为哈希表加双向循环链表,元素可指定顺序为插入顺序和访问顺序
+		Map linkedHashMap=new LinkedHashMap<String,Object>(3,(float) 0.76,true);
 		
-		
-		
-		Map treeMap=new TreeMap<String,Object>();
+		TreeMap treeMap=new TreeMap<String,Object>();
 		Map weakHashMap=new WeakHashMap<String,Object>();
 		//线程安全
 		Map hashtable=new Hashtable<String,Object>();
-		
-		
-		
+		User user=new User();
 	}
+	
+	static class MapTest extends LinkedHashMap{
+		public static void main(String[] args) {
+			MapTest fefe=new MapTest();
+			System.out.println("内部类的main方法");
+		}
+	}
+	
 }

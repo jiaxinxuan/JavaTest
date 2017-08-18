@@ -51,7 +51,7 @@ public class Ch09_Executor {
         // 线程池的大小会根据执行的任务数动态分配  
         ExecutorService cachedThreadPool = Executors.newCachedThreadPool();  
           
-            // 创建单个线程的线程池，如果当前线程在执行任务时突然中断，则会创建一个新的线程替代它继续执行任务    
+        // 创建单个线程的线程池，如果当前线程在执行任务时突然中断，则会创建一个新的线程替代它继续执行任务    
         ExecutorService singleThreadPool = Executors.newSingleThreadExecutor();  
           
         // 效果类似于Timer定时器  

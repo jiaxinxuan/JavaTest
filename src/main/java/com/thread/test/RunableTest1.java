@@ -1,10 +1,10 @@
 package com.thread.test;
 /**
- * 实现多线程runable方法
+ * 实现多线程runable方法,多个线程共同操作num变量
  * @author Administrator
  *
  */
-public class Thread1 {
+public class RunableTest1 {
 	
 	public static  Integer num=0;
 	public static void main(String[] args) {

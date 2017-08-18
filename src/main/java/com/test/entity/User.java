@@ -142,5 +142,13 @@ public class User {
 				return false;
 			return true;
 		}
+		
+		protected void protectedTest(){
+			System.out.println("protected 访问控制符测试!");
+		}
+		
+		void defaultTest(){
+			System.out.println("default 默认方法测试");
+		}
 	     
 }
