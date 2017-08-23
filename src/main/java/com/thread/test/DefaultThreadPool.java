@@ -14,21 +14,26 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job>{
     private static final int DEFAULT_WORKER_NUMBERS = 5;
     // 线程池维护工作者线程的最小数量
     private static final int MIN_WORKER_NUMBERS = 1;
-    // 维护一个工作列表,里面加入客户端发起的工作
+    // 维护一个工作列表,里面加入客户端发起的工作,正在工作的线程
     private final LinkedList<Job> jobs = new LinkedList<Job>();
-    // 工作者线程的列表
+    // 工作者线程的列表,保存的是处于等待状态的线程
     private final List<Worker> workers = Collections.synchronizedList(new ArrayList<Worker>());
     // 工作者线程的数量
     private int workerNum;
     // 每个工作者线程编号生成
     private AtomicLong threadNum = new AtomicLong();
 
-	 //生成线程池
+	 /**
+	  * 初始化线程池,设定线程池的大小
+	  */
 	public DefaultThreadPool() {
 	        this.workerNum = DEFAULT_WORKER_NUMBERS;
 	        initializeWorkers(this.workerNum);
 	    }
-
+    /**
+     * 初始化线程池,可设置初始时的池大小
+     * @param num 初始化线程池大小
+     */
     public DefaultThreadPool(int num) {
         if (num > MAX_WORKER_NUMBERS) {
             this.workerNum =DEFAULT_WORKER_NUMBERS;
@@ -37,13 +42,17 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job>{
         }
         initializeWorkers(this.workerNum);
     }
-	//初始化每个工作者线程
+	/**
+	 * 初始化每个工作者线程 
+     * 2017年8月23日下午2:35:07
+	 * @param num
+	 */
 	private void initializeWorkers(int num) {
 	        for (int i = 0; i < num; i++) {
 	            Worker worker = new Worker();
-	            //添加到工作者线程的列表
+	            //添加到工作者线程的列表(此处线程处于可运行状态,什么都不做)
 	            workers.add(worker);
-	            //启动工作者线程
+	            //启动工作者线程,让其处于可运行状态
 	            Thread thread = new Thread(worker);
 	            thread.start();
 	        }
@@ -53,8 +62,8 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job>{
 	        if (job != null) {
 	        //根据线程的"等待/通知机制"这里必须对jobs加锁
 	            synchronized (jobs) {
-	                jobs.addLast(job);
-	                jobs.notify();
+	                jobs.addLast(job);//加入工作线程列表,此处线程即将工作
+	                jobs.notify(); //唤醒在此对象监视器上等待的单个线程。(可以理解为j唤醒ods对象上的线程,让其运行)
 	            }
 	        }
 	    }

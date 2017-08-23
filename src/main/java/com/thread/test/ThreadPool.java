@@ -1,5 +1,11 @@
 package com.thread.test;
 
+/**
+ * 自定义线程池接口
+ * @author 贾新轩
+ * 2017年8月23日  下午2:29:23
+ * @param <Job>
+ */
 public interface ThreadPool<Job extends Runnable>{
 	   //执行一个任务(Job),这个Job必须实现Runnable
 	   void execute(Job job);
