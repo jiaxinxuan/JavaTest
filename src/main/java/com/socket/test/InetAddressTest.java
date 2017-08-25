@@ -11,12 +11,13 @@ import java.net.UnknownHostException;
 public class InetAddressTest {
 	
 	public static void main(String[] args) {
-//		try {
-//			InetAddress inetAddress=InetAddress.getLocalHost();
-//			System.out.println(inetAddress.getHostName());
-//		} catch (UnknownHostException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			InetAddress inetAddress=InetAddress.getByName("www.caixin.com");
+			System.out.println(inetAddress.getHostName());
+			System.out.println(inetAddress.getHostAddress());
+			System.out.println(inetAddress.getAddress());
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 	}
 }
