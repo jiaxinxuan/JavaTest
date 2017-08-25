@@ -24,46 +24,6 @@ public class HttpUtils {
 	 */
 	public static void main(String[] args) {
 		
-		//自定义post请求实现
-		BufferedWriter bw=null;
-		BufferedReader br=null;
-		try {
-			URL url=new URL("http://gateway.caixin.com/api/extapi/homeInterfacetest.jsp");
-			String params="subject=101121220&start=4&count=3&picdim=_145_97&type=2";
-			URLConnection urlCon=url.openConnection();
-			//设置连接通用属性,不要忘记设置连接属性哦!!!!
-			urlCon.setRequestProperty("accept", "*/*");//浏览器可以支持的mime的类型,即是浏览器可以支持的格式,如jpg,text,html等
-			urlCon.setRequestProperty("connection", "Keep-Alive");//是否需要持久连接
-			urlCon.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");//标识浏览器的类型不同浏览器的值不同
-			urlCon.setDoOutput(true);
-			urlCon.setDoInput(true);
-			bw=new BufferedWriter(new OutputStreamWriter(urlCon.getOutputStream()));
-			bw.write(params);
-			bw.flush();
-			 br=new BufferedReader(new InputStreamReader(urlCon.getInputStream(), "UTF-8"));
-			String result=br.readLine();
-			String content="";
-			//获取响应内容
-			while(result!=null){
-				content+=result;
-				result=br.readLine();
-			}
-			System.out.println(content);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				bw.close();
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		}
-		
-		
-		
 		
 	}
 	
@@ -176,4 +136,47 @@ public class HttpUtils {
         return result;
     }    
     
+   
+    /**
+     * 
+     * 自定义post请求实现
+     */
+    public void testPost(){
+    	BufferedWriter bw=null;
+		BufferedReader br=null;
+		try {
+			URL url=new URL("http://gateway.caixin.com/api/extapi/homeInterfacetest.jsp");
+			String params="subject=101121220&start=4&count=3&picdim=_145_97&type=2";
+			URLConnection urlCon=url.openConnection();
+			//设置连接通用属性,不要忘记设置连接属性哦!!!!
+			urlCon.setRequestProperty("accept", "*/*");//浏览器可以支持的mime的类型,即是浏览器可以支持的格式,如jpg,text,html等
+			urlCon.setRequestProperty("connection", "Keep-Alive");//是否需要持久连接
+			urlCon.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");//标识浏览器的类型不同浏览器的值不同
+			urlCon.setDoOutput(true);
+			urlCon.setDoInput(true);
+			bw=new BufferedWriter(new OutputStreamWriter(urlCon.getOutputStream()));
+			bw.write(params);
+			bw.flush();
+			 br=new BufferedReader(new InputStreamReader(urlCon.getInputStream(), "UTF-8"));
+			String result=br.readLine();
+			String content="";
+			//获取响应内容
+			while(result!=null){
+				content+=result;
+				result=br.readLine();
+			}
+			System.out.println(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				bw.close();
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+    }
 }
