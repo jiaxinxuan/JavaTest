@@ -1,4 +1,9 @@
 /target/
-/pom.xml
 /.gitignore
 /.project
+/.idea/
+.idea/encodings.xml
+.idea/misc.xml
+.idea/workspace.xml
+/.idea/vcs.xml
+MyTest.iml
