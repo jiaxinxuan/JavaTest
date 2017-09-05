@@ -3,21 +3,18 @@ package com.socket.test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.KeyManagementException;
+import java.nio.charset.Charset;
 import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.net.ssl.SSLContext;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -26,6 +23,7 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLContexts;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -39,8 +37,12 @@ public class HttpClientTest {
 
 	@Test
 	public void jUnitTest() {
-		get();
-	}
+        JsonObject j = new JsonObject();
+        j.addProperty("commmonNum", "15037006133");
+        j.addProperty("uid", "1234156");
+        String uri="http://10.10.205.76:22868/userCenter";
+        postJson(j.toString(),uri);
+    }
 
 	/**
 	 * HttpClient连接SSL
@@ -83,15 +85,7 @@ public class HttpClientTest {
 			} finally {
 				response.close();
 			}
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (KeyManagementException e) {
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (KeyStoreException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if (httpclient != null) {
@@ -132,11 +126,7 @@ public class HttpClientTest {
 			} finally {
 				response.close();
 			}
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			// 关闭连接,释放资源  
@@ -165,21 +155,14 @@ public class HttpClientTest {
 			httppost.setEntity(uefEntity);
 			System.out.println("executing request " + httppost.getURI());
 			CloseableHttpResponse response = httpclient.execute(httppost);
-			try {
-				HttpEntity entity = response.getEntity();
-				if (entity != null) {
-					System.out.println("--------------------------------------");
-					System.out.println("Response content: " + EntityUtils.toString(entity, "UTF-8"));
-					System.out.println("--------------------------------------");
-				}
-			} finally {
-				response.close();
-			}
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		} catch (IOException e) {
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                System.out.println("--------------------------------------");
+                System.out.println("Response content: " + EntityUtils.toString(entity, "UTF-8"));
+                System.out.println("--------------------------------------");
+            }
+            response.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			// 关闭连接,释放资源  
@@ -218,11 +201,7 @@ public class HttpClientTest {
 			} finally {
 				response.close();
 			}
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			// 关闭连接,释放资源  
@@ -262,9 +241,7 @@ public class HttpClientTest {
 			} finally {
 				response.close();
 			}
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -274,4 +251,41 @@ public class HttpClientTest {
 			}
 		}
 	}
+
+    /**
+     * 发送 post Json请求
+     */
+    public void postJson(String params,String uri) {
+        // 创建默认的httpClient实例.
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        // 创建httppost
+        HttpPost httppost = new HttpPost(uri);
+
+        StringEntity uefEntity;
+        try {
+            httppost.addHeader("Content-type","application/json; charset=utf-8");
+            httppost.setHeader("Accept", "application/json");
+            //设置json格式的请求参数
+            uefEntity = new StringEntity(params, Charset.forName("UTF-8"));
+            httppost.setEntity(uefEntity);
+            System.out.println("executing request " + httppost.getURI());
+            CloseableHttpResponse response = httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                System.out.println("--------------------------------------");
+                System.out.println("Response content: " + EntityUtils.toString(entity, "UTF-8"));
+                System.out.println("--------------------------------------");
+            }
+            response.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            // 关闭连接,释放资源
+            try {
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
