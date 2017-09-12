@@ -15,7 +15,8 @@ import com.annotation.SystemControllerLog;
 import com.test.entity.User;
 import com.velocity.service.Department;
 import com.velocity.service.DepartmentService;
- 
+import org.springframework.web.servlet.support.RequestContext;
+
 @Controller
 public class MainController {
  
@@ -44,4 +45,15 @@ public class MainController {
 	   session.setAttribute("user", user);
 	   return "redirect:/welcome";
    }
+
+    @RequestMapping("/test")
+    public String Test(HttpServletRequest request) {
+        //后台获取国际化的信息
+        RequestContext requestContext = new RequestContext(request);
+        String message = requestContext.getMessage("welcome");  //获取国际化信息
+        System.out.println(message);
+        System.out.println("aaaaaaaaaa");
+
+        return "jsp/main";
+    }
 }

@@ -213,6 +213,11 @@
           <artifactId>javase</artifactId>
           <version>3.0.0</version>
       </dependency>
+      <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+          <version>1.2</version>
+      </dependency>
   </dependencies>
   <!-- maven仓库配置，这是个范例，可以被其他项目并用 -->
   <repositories>
