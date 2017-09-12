@@ -84,7 +84,7 @@ public class PoiTest {
                 "jdbc:mysql://127.0.0.1:3306/project?useServerPrepStmts=false&rewriteBatchedStatements=true",
                 "root", "root");
 
-        connection.setAutoCommit(false);
+        connection.setAutoCommit(false);//设置成非自动提交
         PreparedStatement cmd = connection.prepareStatement("INSERT INTO user (email) VALUES (?)");
         Workbook workbook = WorkbookFactory.create(new FileInputStream(new File("C://123.xlsx")));
         int sheetCount = workbook.getNumberOfSheets();

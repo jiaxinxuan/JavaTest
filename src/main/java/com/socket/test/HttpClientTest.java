@@ -11,8 +11,7 @@ import java.util.List;
 
 import javax.net.ssl.SSLContext;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import net.sf.json.JSONObject;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -32,16 +31,26 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
+import org.springframework.web.client.RestTemplate;
 
 public class HttpClientTest {
 
 	@Test
 	public void jUnitTest() {
-        JsonObject j = new JsonObject();
-        j.addProperty("commmonNum", "15037006133");
-        j.addProperty("uid", "1234156");
-        String uri="http://10.10.205.76:22868/userCenter";
-        postJson(j.toString(),uri);
+        JSONObject map=new JSONObject();
+        map.put("authAccount","15037006133");
+        map.put("authType","1");
+        map.put("businessType","1001");
+        map.put("systemType","100112");
+//            map.put("codeLength ","4");
+//            map.put("expireMinute ","5");
+        map.put("templateId","1001006");
+        String uri="http://10.10.205.76:18089/authCodes/sendAuthCode";
+        RestTemplate template = new RestTemplate();
+        System.out.println(JSONObject.fromObject(map));
+        Object obj =  template.postForObject(uri,map,Object.class);
+        System.out.println(JSONObject.fromObject(obj));
+//        postJson(map.toString(),uri);
     }
 
 	/**
