@@ -1,8 +1,13 @@
 package com.velocity.controller;
  
+import java.io.*;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.*;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,4 +61,40 @@ public class MainController {
 
         return "jsp/main";
     }
+    @RequestMapping("/download")
+    public void download(HttpServletRequest request, HttpServletResponse response) throws Exception{
+
+        try {
+            String downloadFilename = "中文.zip";//文件的名称
+            downloadFilename = URLEncoder.encode(downloadFilename, "UTF-8");//转换中文否则可能会产生乱码
+            response.setContentType("application/octet-stream");// 指明response的返回对象是文件流
+            response.setHeader("Content-Disposition", "attachment;filename=" + downloadFilename);// 设置在下载框默认显示的文件名
+            ZipOutputStream zos = new ZipOutputStream(response.getOutputStream());
+            File file=new File("/data/www/images/7yh6");
+            File[] files=null;
+            if(file.exists()&&file.isDirectory()){
+                files=file.listFiles();
+            }
+            for (int i=0;i<files.length;i++) {
+                zos.putNextEntry(new ZipEntry(files[i].getName()+".jpg"));
+                InputStream fis =new FileInputStream(files[i]);
+                byte[] buffer = new byte[1024];
+                int r = 0;
+                while ((r = fis.read(buffer)) != -1) {
+                    zos.write(buffer, 0, r);
+                }
+                fis.close();
+            }
+            zos.flush();
+            zos.close();
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+
 }

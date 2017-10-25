@@ -38,7 +38,7 @@ public class Ch09_Executor {
 		if(COUNT+10>list.size())
 			return	list.subList(COUNT, list.size()-1);
 		else{
-			List<Integer> list1=list.subList(COUNT, 10);
+			List<Integer> list1=list.subList(COUNT, COUNT+10);
 			COUNT=COUNT+10;
 			return list1;
 		}
