@@ -86,16 +86,6 @@
 	</dependency>
 	<dependency>
     <groupId>org.apache.poi</groupId>
-    <artifactId>poi</artifactId>
-    <version>3.8</version>
-	</dependency>
-	<dependency>
-    <groupId>org.apache.poi</groupId>
-    <artifactId>poi-ooxml</artifactId>
-    <version>3.8</version>
-	</dependency>
-	<dependency>
-    <groupId>org.apache.poi</groupId>
     <artifactId>poi-scratchpad</artifactId>
     <version>3.2-FINAL</version>
 	</dependency>
@@ -218,11 +208,31 @@
           <artifactId>jstl</artifactId>
           <version>1.2</version>
       </dependency>
+      <dependency>
+          <groupId>org.apache.poi</groupId>
+          <artifactId>poi</artifactId>
+          <version>3.14</version>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.poi</groupId>
+          <artifactId>poi-ooxml</artifactId>
+          <version>3.14</version>
+      </dependency>
+      <dependency>
+          <groupId>xerces</groupId>
+          <artifactId>xerces</artifactId>
+          <version>2.4.0</version>
+      </dependency>
+      <dependency>
+          <groupId>com.oracle</groupId>
+          <artifactId>classes12</artifactId>
+          <version>9.0.2.0.0</version>
+      </dependency>
   </dependencies>
   <!-- maven仓库配置，这是个范例，可以被其他项目并用 -->
   <repositories>
   <!-- 公司仓库 -->
-  	<!-- <repository>
+      <repository>
 			<id>public</id>
 			<name>Local Maven Repository</name>
 			<layout>default</layout>
@@ -230,7 +240,7 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-   </repository> -->
+      </repository>
    <!-- 国内仓库 -->
    <!-- <repository>  
       <id>maven-net-cn</id>  
@@ -259,14 +269,14 @@
 				<enabled>false</enabled>
 			</releases>
 		</repository> -->
-		<repository>
-			<id>public</id>
-			<name>阿里云公共镜像</name>
-			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-			<layout>default</layout>
-			<snapshots>
-			</snapshots>
-		</repository>
+		<!--<repository>-->
+			<!--<id>public</id>-->
+			<!--<name>阿里云公共镜像</name>-->
+			<!--<url>http://maven.aliyun.com/nexus/content/groups/public/</url>-->
+			<!--<layout>default</layout>-->
+			<!--<snapshots>-->
+			<!--</snapshots>-->
+		<!--</repository>-->
   </repositories>
   <!-- 多环境配置 环境都公用的配置，直接放到src/main/resources目录下或WEB-INF/目录下，打包时会自动替换-->
   <profiles>
