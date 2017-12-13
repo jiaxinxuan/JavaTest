@@ -24,13 +24,9 @@
       <!--</property>-->
   <!--</bean>-->
   <mvc:annotation-driven /> 
-	<mvc:resources location="/image/" mapping="/image/**"/> 
-	<mvc:resources location="/WEB-INF/image/" mapping="/image/**"/> 
-	<mvc:resources location="/WEB-INF/css/" mapping="/css/**"/> 
 	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
 	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
 	<mvc:resources location="/WEB-INF/api/" mapping="/api/**"/>
-	<mvc:resources location="/index.html" mapping="/index.html"/> 
  <!-- 配置velocity视图解析器，与velocity集成 -->
   <!--<bean id="viewResolver"-->
       <!--class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">-->
