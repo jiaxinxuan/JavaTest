@@ -87,11 +87,11 @@ public class IndexManager{
             
             System.out.println("name :"+file.getName());
             System.out.println("path :"+file.getPath());
-//            System.out.println("content :"+content);
+            System.out.println("content :"+content);
             System.out.println();
             try{
                 analyzer = new StandardAnalyzer();
-                analyzer.setVersion(Version.LUCENE_5_3_1);
+                analyzer.setVersion(Version.LUCENE_7_0_0);
                 directory = FSDirectory.open(Paths.get(INDEX_DIR));
     
                 File indexFile = new File(INDEX_DIR);
@@ -196,7 +196,7 @@ public class IndexManager{
         try{
             directory = FSDirectory.open(Paths.get(INDEX_DIR));
             analyzer = new StandardAnalyzer();
-            analyzer.setVersion(Version.LUCENE_5_3_0);
+            analyzer.setVersion(Version.LUCENE_7_0_0);
             DirectoryReader ireader = DirectoryReader.open(directory);
             IndexSearcher isearcher = new IndexSearcher(ireader);
     

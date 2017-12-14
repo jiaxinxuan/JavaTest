@@ -6,11 +6,11 @@
   <packaging>war</packaging>
   <name>MyTest</name>
   <properties>
-     <lucence.version>5.5.2</lucence.version>
+     <lucence.version>7.0.0</lucence.version>
   	 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   	 <project.build.name>MyTest</project.build.name>
-  	 <spring.version>4.2.3.RELEASE</spring.version>
-      <mysql.version>5.1.13</mysql.version>
+  	 <spring.version>5.0.2.RELEASE</spring.version>
+     <mysql.version>5.1.13</mysql.version>
   </properties>
   
   <dependencies>

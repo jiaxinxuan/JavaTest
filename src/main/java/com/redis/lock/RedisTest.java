@@ -1,11 +1,13 @@
 package com.redis.lock;
 
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.stereotype.Component;
-import redis.clients.jedis.Jedis;
+
 
 /**
  * @author 贾新轩
@@ -14,18 +16,40 @@ import redis.clients.jedis.Jedis;
 @Component
 public class RedisTest {
 
-    @Autowired
-    RedisTemplate redisTemplate;
-
-    @Autowired
-    StringRedisTemplate stringRedisTemplate;
 
     public static void main(String[] args) {
-      RedisHelper redisHelper=RedisHelper.newInstance("localhost",6379,"123456",10,10,1000L);
-      redisHelper.setNx("test","jiaxinxuan");
-      System.out.println(redisHelper.get("test"));
+        redisStandaloneTest();
+        redisSentinelTest();
+        redisClusterTest();
     }
-    private void redisTemplateTest(){
-//        redisTemplate
+
+    /**
+     * redis 单机模式测试
+     */
+    private static void redisStandaloneTest(){
+        //以单机模式创建redis链接工厂
+        RedisConnectionFactory redisConnectionFactory=new JedisConnectionFactory(new RedisStandaloneConfiguration());
+        //创建redis的spring封装类
+        RedisTemplate redisTemplate=new RedisTemplate();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+        //必须执行初始化操作，否则不会设置序列化，就无法存取值
+        redisTemplate.afterPropertiesSet();
+        //字符串方式存取值
+        redisTemplate.opsForValue().set("jia","xinxuain");
+        System.out.println(redisTemplate.opsForValue().get("jia"));
+    }
+
+    /**
+     * redis 哨兵模式测试
+     */
+    private static void redisSentinelTest(){
+
+    }
+
+    /**
+     * redis 集群模式测试
+     */
+    private static void redisClusterTest(){
+
     }
 }
