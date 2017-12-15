@@ -1,12 +1,13 @@
 package com.redis.lock;
-
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.SetOperations;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -23,21 +24,38 @@ public class RedisTest {
         redisClusterTest();
     }
 
-    /**
-     * redis 单机模式测试
-     */
-    private static void redisStandaloneTest(){
-        //以单机模式创建redis链接工厂
-        RedisConnectionFactory redisConnectionFactory=new JedisConnectionFactory(new RedisStandaloneConfiguration());
-        //创建redis的spring封装类
-        RedisTemplate redisTemplate=new RedisTemplate();
-        redisTemplate.setConnectionFactory(redisConnectionFactory);
-        //必须执行初始化操作，否则不会设置序列化，就无法存取值
-        redisTemplate.afterPropertiesSet();
-        //字符串方式存取值
-        redisTemplate.opsForValue().set("jia","xinxuain");
-        System.out.println(redisTemplate.opsForValue().get("jia"));
+    private static void redisStandaloneTest() {
+        RedisTemplateTest redisTemplateTest=RedisTemplateTest.getInstance();
+        //字符串
+        redisTemplateTest.setValue("jia","jiaxinxuan");
+        System.out.println(redisTemplateTest.getValue("jia"));
+        ValueOperations valueOperations=redisTemplateTest.getValueOperations();
+        //如果key不存在，则设置一个新值，存在的话就不做任何改变。
+        valueOperations.setIfAbsent("jia","xinxuanjia@caixin.com");
+        //列表
+        List<Integer> list=new ArrayList(16);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        ListOperations listOperations=redisTemplateTest.getListOperations();
+        listOperations.leftPushAll("test",list);
+        listOperations.leftPush("test",5);
+        listOperations.leftPush("test",6);
+        listOperations.rightPush("test",8);
+        listOperations.rightPush("test",9);
+        System.out.println(listOperations.range("test",0,100));
+        //集合
+        Set<Object> set=new HashSet();
+        set.add(list);
+        set.add("jiaxufjei");
+        SetOperations setOperations=redisTemplateTest.getSetOperations();
+        setOperations.add("set",set);
+        System.out.println(setOperations.pop("set"));
+
+
     }
+
 
     /**
      * redis 哨兵模式测试
