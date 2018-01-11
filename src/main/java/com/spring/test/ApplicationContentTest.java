@@ -3,6 +3,8 @@ package com.spring.test;
 import com.mail.test.MailUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.beans.factory.support.AbstractBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -43,6 +45,9 @@ public class ApplicationContentTest {
         System.out.println(fileApp.getDisplayName());
     }
 
+    /**
+     * 测试beanFactory接口定义的API
+     */
     @Test
     public void beanFactoryTest(){
         ApplicationContext applicationContext=new ClassPathXmlApplicationContext("spring-mail.xml");
@@ -52,9 +57,15 @@ public class ApplicationContentTest {
         mailUtil2.send("552387367@qq.com","ioc容器测试","ioc容器测试");
         DefaultListableBeanFactory defaultListableBeanFactory=new DefaultListableBeanFactory();
         defaultListableBeanFactory.toString();
+        System.out.println(applicationContext.getApplicationName());
+        System.out.println(applicationContext.getDisplayName());
+        System.out.println(applicationContext.getStartupDate());
 
     }
 
+    /**
+     * 测试ListableBeanFactory接口定义的API
+     */
     @Test
     public void listableBeanFactory(){
         ListableBeanFactory applicationContext=new ClassPathXmlApplicationContext("spring-mail.xml");
@@ -63,4 +74,24 @@ public class ApplicationContentTest {
             System.out.println(name);
         }
     }
+
+    /**
+     * 测试configurableBeanFactory定义的API
+     */
+    @Test
+    public void configurableBeanFactoryTest(){
+        ApplicationContext applicationContext=new ClassPathXmlApplicationContext("spring-mail.xml");
+        ConfigurableBeanFactory configurableBeanFactory= (ConfigurableBeanFactory) applicationContext.getAutowireCapableBeanFactory();;
+        System.out.println(configurableBeanFactory);
+        System.out.println(configurableBeanFactory.getRegisteredScopeNames().length);
+        System.out.println(configurableBeanFactory.getSingletonCount());
+        System.out.println(configurableBeanFactory.getSingletonNames().length);
+    }
+
+    @Test
+    public void defaultListableBeanFactoryTest(){
+        AbstractBeanFactory defaultListableBeanFactory=new DefaultListableBeanFactory();
+    }
+
+
 }
