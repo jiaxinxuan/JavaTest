@@ -1,5 +1,7 @@
 package com.algorithm.test;
 
+import org.junit.Test;
+
 import javax.mail.search.IntegerComparisonTerm;
 
 /**
@@ -8,7 +10,7 @@ import javax.mail.search.IntegerComparisonTerm;
  * @author
  * @create 2018-03-07 11:40
  */
-public class BinSeatch {
+public class search {
 
     public static void main(String[] args) {
         Integer [] arr={1,2,3,4,5,6,7};
@@ -69,4 +71,6 @@ public class BinSeatch {
         }
 
     }
+
+
 }
