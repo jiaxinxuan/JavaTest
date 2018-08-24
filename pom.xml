@@ -248,6 +248,24 @@
           <artifactId>spring-rabbit</artifactId>
           <version>2.0.1.RELEASE</version>
       </dependency>
+	  <!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
+	  <dependency>
+		  <groupId>org.apache.zookeeper</groupId>
+		  <artifactId>zookeeper</artifactId>
+		  <version>3.4.10</version>
+		  <type>pom</type>
+	  </dependency>
+	  <dependency>
+		  <groupId>com.101tec</groupId>
+		  <artifactId>zkclient</artifactId>
+		  <version>0.10</version>
+	  </dependency>
+      <dependency>
+          <groupId>org.jetbrains</groupId>
+          <artifactId>annotations</artifactId>
+          <version>RELEASE</version>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
   <!-- maven仓库配置，这是个范例，可以被其他项目并用 -->
   <repositories>
