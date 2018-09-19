@@ -2,12 +2,10 @@ package com.algorithm.test;
 
 import org.junit.Test;
 
-import java.math.BigDecimal;
-
 /**
  * @author 55238
  */
-public class squareMatrixMultiply {
+public class SquareMatrixMultiplyTest {
 
     /**
      *

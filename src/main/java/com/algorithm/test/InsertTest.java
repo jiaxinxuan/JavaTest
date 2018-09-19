@@ -7,7 +7,7 @@ import org.junit.Test;
  * 排序算法
  * @author 55238
  */
-public class Insert {
+public class InsertTest {
 
     /**
      * 插入排序

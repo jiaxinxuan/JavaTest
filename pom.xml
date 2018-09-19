@@ -22,7 +22,7 @@
   	<dependency>
 		<groupId>junit</groupId>
 		<artifactId>junit</artifactId>
-		<version>4.10</version>
+		<version>4.12</version>
 	</dependency>
 	<dependency>
             <groupId>org.apache.velocity</groupId>
@@ -266,6 +266,17 @@
           <version>RELEASE</version>
           <scope>compile</scope>
       </dependency>
+	  <!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+	  <dependency>
+		  <groupId>com.thoughtworks.xstream</groupId>
+		  <artifactId>xstream</artifactId>
+		  <version>1.4.10</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>rome</groupId>
+		  <artifactId>rome</artifactId>
+		  <version>1.0</version>
+	  </dependency>
   </dependencies>
   <!-- maven仓库配置，这是个范例，可以被其他项目并用 -->
   <repositories>

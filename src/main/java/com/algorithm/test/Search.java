@@ -1,16 +1,12 @@
 package com.algorithm.test;
 
-import org.junit.Test;
-
-import javax.mail.search.IntegerComparisonTerm;
-
 /**
  * 二分查找
  *
  * @author
  * @create 2018-03-07 11:40
  */
-public class search {
+public class Search {
 
     public static void main(String[] args) {
         Integer [] arr={1,2,3,4,5,6,7};

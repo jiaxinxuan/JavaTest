@@ -28,7 +28,7 @@ public class MailTest {
     @Test  
     public void sendSingleTest(){  
         log.info("sendSingleTest");  
-        mailUtil.send("xinxuanjia@caixin.com", "This is a test single mail", "Hello Single!");  
+        mailUtil.send("552387367@qq.com", "This is a test single mail", "Hello Single!");
     }  
      /**
       * 群发测试 

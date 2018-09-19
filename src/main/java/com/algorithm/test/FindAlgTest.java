@@ -1,7 +1,5 @@
 package com.algorithm.test;
 
-import net.sf.json.util.JSONUtils;
-import org.apache.commons.collections.MapUtils;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -11,7 +9,7 @@ import java.util.Map;
  * @author 55238
  * 分治法 ：应用递归解决   分解问题-》解决问题-》合并问题
  */
-public class findAlg {
+public class FindAlgTest {
 
     /**
      * 求解和最大 子数组
