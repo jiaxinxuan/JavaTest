@@ -10,6 +10,6 @@
                         "> 
            <!-- 启动对@AspectJ注解的支持,配置Spring的代理基于类的代理，以便能拦截到Controller -->  
             <aop:aspectj-autoproxy />    
-              <!-- <aop:include name="systemLogAspect" /> -->
-    		<!-- <bean id="systemLogAspect" class="com.annotation.SystemLogAspect"></bean>    -->     
+            <!--<aop:include name="systemLogAspect" /> -->
+    		 <bean id="systemLogAspect" class="com.annotation.SystemLogAspect"></bean>
 </beans>

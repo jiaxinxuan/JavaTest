@@ -17,24 +17,24 @@
   <!--开启spring的注解功能，让扫描到的controller,可以使用Spring注解，一般情况下配置scan以后就会默认开启此功能-->
   <context:annotation-config />
  	<!-- 实例化velocity和springMVC集成的bean -->
-  <!--<bean id="velocityConfig"-->
-      <!--class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">-->
-      <!--<property name="resourceLoaderPath">-->
-          <!--<value>/</value>-->
-      <!--</property>-->
-  <!--</bean>-->
+  <bean id="velocityConfig"
+      class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+      <property name="resourceLoaderPath">
+          <value>/</value>
+      </property>
+  </bean>
   <mvc:annotation-driven /> 
 	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
 	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
 	<mvc:resources location="/WEB-INF/api/" mapping="/api/**"/>
  <!-- 配置velocity视图解析器，与velocity集成 -->
-  <!--<bean id="viewResolver"-->
-      <!--class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">-->
-      <!--<property name="cache" value="true" />&lt;!&ndash; 开启缓存 ，缓存已经解析过得视图&ndash;&gt;-->
-      <!--<property name="prefix" value="/WEB-INF/" />&lt;!&ndash; 视图名前缀 &ndash;&gt;-->
-      <!--<property name="layoutUrl" value="/WEB-INF/layouts/layout.vm" />-->
-      <!--<property name="suffix" value=".vm" />&lt;!&ndash; 视图名后缀 &ndash;&gt;-->
-  <!--</bean>-->
+  <bean id="viewResolver"
+      class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+      <property name="cache" value="true" /><!-- 开启缓存 ，缓存已经解析过得视图-->
+      <property name="prefix" value="/WEB-INF/" /><!-- 视图名前缀 -->
+      <property name="layoutUrl" value="/WEB-INF/layouts/layout.vm" />
+      <property name="suffix" value=".vm" /><!-- 视图名后缀 -->
+  </bean>
   <!-- 配置JSP的视图解析器 -->
   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />  
