@@ -35,8 +35,11 @@ import org.apache.poi.hwpf.usermodel.Range;
  *
  */
 public class IndexManager{
-	//索引管理
+    /**
+     * 索引管理
+     */
     private static IndexManager indexManager;
+
     private static String content="";
     
     private static String INDEX_DIR = "F:\\luceneIndex";
@@ -55,7 +58,7 @@ public class IndexManager{
      */
     public IndexManager getManager(){
         if(indexManager == null){
-            this.indexManager = new IndexManager();
+            indexManager = new IndexManager();
         }
         return indexManager;
     }
@@ -126,18 +129,20 @@ public class IndexManager{
      * @return 返回文件内容
      */
     public static String txt2String(File file){
-        String result = "";
+        StringBuilder result = new StringBuilder();
         try{
-            BufferedReader br = new BufferedReader(new FileReader(file));//构造一个BufferedReader类来读取文件
+            //构造一个BufferedReader类来读取文件
+            BufferedReader br = new BufferedReader(new FileReader(file));
             String s = null;
-            while((s = br.readLine())!=null){//使用readLine方法，一次读一行
-                result = result + "\n" +s;
+            //使用readLine方法，一次读一行
+            while((s = br.readLine())!=null){
+                result.append("\n" +s);
             }
             br.close();    
         }catch(Exception e){
             e.printStackTrace();
         }
-        return result;
+        return result.toString();
     }
     
     /**
