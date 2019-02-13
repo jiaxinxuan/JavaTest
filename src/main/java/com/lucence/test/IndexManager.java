@@ -42,9 +42,9 @@ public class IndexManager{
 
     private static String content="";
     
-    private static String INDEX_DIR = "F:\\luceneIndex";
+    private static String INDEX_DIR = "/home/jiaxinxuan/data/luceneIndex";
     
-    private static String DATA_DIR = "F:\\luceneData";
+    private static String DATA_DIR = "/home/jiaxinxuan/data/luceneData";
     //分析
     private static Analyzer analyzer = null;
     //目录
@@ -70,24 +70,24 @@ public class IndexManager{
     public static boolean createIndex(String path){
         Date date1 = new Date();
         List<File> fileList = getFileList(path);
-        for (File file : fileList) {
+        fileList.forEach(file -> {
             content = "";
             //获取文件后缀
             String type = file.getName().substring(file.getName().lastIndexOf(".")+1);
             if("txt".equalsIgnoreCase(type)){
-                
+
                 content += txt2String(file);
-            
+
             }else if("doc".equalsIgnoreCase(type)){
-            
+
                 content += doc2String(file);
-            
+
             }else if("xls".equalsIgnoreCase(type)){
-                
+
                 content += xls2String(file);
-                
+
             }
-            
+
             System.out.println("name :"+file.getName());
             System.out.println("path :"+file.getPath());
             System.out.println("content :"+content);
@@ -96,14 +96,14 @@ public class IndexManager{
                 analyzer = new StandardAnalyzer();
                 analyzer.setVersion(Version.LUCENE_7_0_0);
                 directory = FSDirectory.open(Paths.get(INDEX_DIR));
-    
+
                 File indexFile = new File(INDEX_DIR);
                 if (!indexFile.exists()) {
                     indexFile.mkdirs();
                 }
                 IndexWriterConfig config = new IndexWriterConfig(analyzer);
                 indexWriter = new IndexWriter(directory, config);
-                
+
                 Document document = new Document();
                 document.add(new TextField("filename", file.getName(), Store.YES));
                 document.add(new TextField("content", content, Store.YES));
@@ -111,13 +111,13 @@ public class IndexManager{
                 indexWriter.addDocument(document);
                 indexWriter.commit();
                 closeWriter();
-    
-                
+
+
             }catch(Exception e){
                 e.printStackTrace();
             }
             content = "";
-        }
+        });
         Date date2 = new Date();
         System.out.println("创建索引-----耗时：" + (date2.getTime() - date1.getTime()) + "ms\n");
         return true;
@@ -138,13 +138,13 @@ public class IndexManager{
             while((s = br.readLine())!=null){
                 result.append("\n" +s);
             }
-            br.close();    
+            br.close();
         }catch(Exception e){
             e.printStackTrace();
         }
         return result.toString();
     }
-    
+
     /**
      * 读取doc文件内容
      * @param file 想要读取的文件对象
@@ -163,7 +163,7 @@ public class IndexManager{
         }
         return result;
     }
-    
+
     /**
      * 读取xls文件内容
      * @param file 想要读取的文件对象
@@ -172,19 +172,19 @@ public class IndexManager{
     public static String xls2String(File file){
         String result = "";
         try{
-            FileInputStream fis = new FileInputStream(file);   
-            StringBuilder sb = new StringBuilder();   
-            jxl.Workbook rwb = Workbook.getWorkbook(fis);   
-            Sheet[] sheet = rwb.getSheets();   
-            for (int i = 0; i < sheet.length; i++) {   
-                Sheet rs = rwb.getSheet(i);   
-                for (int j = 0; j < rs.getRows(); j++) {   
-                   Cell[] cells = rs.getRow(j);   
-                   for(int k=0;k<cells.length;k++)   
-                   sb.append(cells[k].getContents());   
-                }   
-            }   
-            fis.close();   
+            FileInputStream fis = new FileInputStream(file);
+            StringBuilder sb = new StringBuilder();
+            jxl.Workbook rwb = Workbook.getWorkbook(fis);
+            Sheet[] sheet = rwb.getSheets();
+            for (int i = 0; i < sheet.length; i++) {
+                Sheet rs = rwb.getSheet(i);
+                for (int j = 0; j < rs.getRows(); j++) {
+                   Cell[] cells = rs.getRow(j);
+                   for(int k=0;k<cells.length;k++)
+                   sb.append(cells[k].getContents());
+                }
+            }
+            fis.close();
             result += sb.toString();
         }catch(Exception e){
             e.printStackTrace();
@@ -211,9 +211,7 @@ public class IndexManager{
             for (int i = 0; i < hits.length; i++) {
                 Document hitDoc = isearcher.doc(hits[i].doc);
                 System.out.println("____________________________");
-                System.out.println(hitDoc.get("filename"));
-                System.out.println(hitDoc.get("content"));
-                System.out.println(hitDoc.get("path"));
+                System.out.println(hitDoc.get("filename")+" "+hitDoc.get("path"));
                 System.out.println("____________________________");
             }
             ireader.close();

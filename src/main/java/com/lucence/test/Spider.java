@@ -12,7 +12,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
  */
 public class Spider {
  private static HttpClient httpClient = new HttpClient();
- private static String filePath="F:\\luceneData";
+ private static String filePath="/home/jiaxinxuan/data/luceneData";
  /**
   * @param path
   *            目标网页的链接

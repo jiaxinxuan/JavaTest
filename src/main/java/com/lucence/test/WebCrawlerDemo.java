@@ -11,6 +11,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class WebCrawlerDemo {
+
+  Pattern pattern1 = Pattern.compile("(https?://)?[^/\\s]*");
+  Pattern pattern2 = Pattern.compile("<a.*?href=[\"']?((https?://)?/?[^\"']+)[\"']?.*?>(.+)</a>");
+
  public static void main(String[] args) {
 	 try {
 		 WebCrawlerDemo webCrawlerDemo = new WebCrawlerDemo();
@@ -23,12 +27,13 @@ public class WebCrawlerDemo {
   }
  
   public void myPrint(String baseUrl) {
-    Map<String, Boolean> oldMap = new LinkedHashMap<String, Boolean>(); // 存储链接-是否被遍历
-                                      // 键值对
-    String oldLinkHost = ""; //host
- 
-    Pattern p = Pattern.compile("(https?://)?[^/\\s]*"); //比如：http://www.zifangsky.cn
-    Matcher m = p.matcher(baseUrl);
+    // 存储链接-是否被遍历 键值对
+    Map<String, Boolean> oldMap = new LinkedHashMap<String, Boolean>();
+
+    String oldLinkHost = "";
+
+    //比如：http://www.zifangsky.cn
+    Matcher m = pattern1.matcher(baseUrl);
     if (m.find()) {
       oldLinkHost = m.group();
     }
@@ -81,23 +86,25 @@ public class WebCrawlerDemo {
             InputStream inputStream = connection.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
             String line = "";
-            Pattern pattern = Pattern.compile("<a.*?href=[\"']?((https?://)?/?[^\"']+)[\"']?.*?>(.+)</a>");
             Matcher matcher = null;
             while ((line = reader.readLine()) != null) {
-              matcher = pattern.matcher(line);
+              matcher = pattern2.matcher(line);
               if (matcher.find()) {
-                String newLink = matcher.group(1).trim(); // 链接
+                // 链接
+                String newLink = matcher.group(1).trim();
                 // String title = matcher.group(3).trim(); //标题
                 // 判断获取到的链接是否以http开头
                 if (!newLink.startsWith("http")) {
-                  if (newLink.startsWith("/"))
+                  if (newLink.startsWith("/")) {
                     newLink = oldLinkHost + newLink;
-                  else
+                  } else {
                     newLink = oldLinkHost + "/" + newLink;
+                  }
                 }
                 //去除链接末尾的 /
-                if(newLink.endsWith("/"))
+                if(newLink.endsWith("/")) {
                   newLink = newLink.substring(0, newLink.length() - 1);
+                }
                 //去重，并且丢弃其他网站的链接
                 if (!oldMap.containsKey(newLink)
                     && !newMap.containsKey(newLink)
@@ -125,7 +132,8 @@ public class WebCrawlerDemo {
     //有新链接，继续遍历
     if (!newMap.isEmpty()) {
       oldMap.putAll(newMap);
-      oldMap.putAll(crawlLinks(oldLinkHost, oldMap)); //由于Map的特性，不会导致出现重复的键值对
+      //由于Map的特性，不会导致出现重复的键值对
+      oldMap.putAll(crawlLinks(oldLinkHost, oldMap));
     }
     return oldMap;
   }
